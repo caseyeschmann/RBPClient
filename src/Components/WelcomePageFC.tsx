@@ -1,6 +1,8 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Container } from '@material-ui/core'
 import ictbuilding from '../../src/assets/ictbuilding.jpg'
+import Subscribe from './WelcomePageCC';
+import SubscribeOrApply from './WelcomePageCC';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -23,6 +25,7 @@ const WelcomePage = () => {
             <h1>Welcome to Insurance Career Training, Inc.!</h1>
             <p>Online continuing education courses for insurance agents.</p>
             <img id = 'ictbuliding' src ={ictbuilding} />
+            <SubscribeOrApply />
                 
             </div>
         </Container>

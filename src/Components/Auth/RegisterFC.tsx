@@ -27,8 +27,7 @@ const RegisterFC = (props: RegisterFormProps) => {
     return (
         <Container className={classes.container}>
             <div>
-                <h1>REGISTER</h1>
-                <RegisterCC setToken={props.setToken} />
+                <RegisterCC updateToken={props.setToken} />
             </div>
         </Container>
     )

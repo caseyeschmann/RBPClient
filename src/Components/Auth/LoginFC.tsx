@@ -21,18 +21,16 @@ interface LoginProps {
     setToken: (newToken: string) => void
 }
 
-const LoginFC =(props: LoginProps)=>{
+const LoginFC = (props: LoginProps)=>{
     const classes = useStyles();
 
     return(
         <Container className={classes.container}>
             <div>
-                <h1>LOG IN</h1>
-                <LoginCC setToken={props.setToken} />
+                <LoginCC updateToken={props.setToken} />
             </div>  
         </Container>
     )
 }
 
 export default LoginFC;
-

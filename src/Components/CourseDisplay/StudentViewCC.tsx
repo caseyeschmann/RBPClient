@@ -21,8 +21,10 @@ interface StudentCourseProps {
 
 
 export default class StudentViewCC extends Component<StudentCourseProps, FetchCoursesState>{
+
     constructor(props: StudentCourseProps) {
         super(props)
+        console.log('Props: ', props);
         this.state = {
             fetched: []
         };
@@ -49,24 +51,24 @@ export default class StudentViewCC extends Component<StudentCourseProps, FetchCo
             })
         }
 
-    // handleSubmit(event: any) {
-    //     event.preventDefault()
-    //     this.fetchResults(event)
-    // }
 
-    // addToCart {
-
-    // }
-
+    // binding our methods to 'this' class component
     componentDidMount () {
         this.fetchAllCourses()
+    }
+
+    clickEnrollButton () {
+        console.log('Course added to shopping cart!')
     }
 
 
     render() {
         return (
             <Container>
+
                 <h2>Upcoming Online Courses</h2>
+
+                <div>
                 {
                     this.state.fetched.map((course, index) =>
                     <div>
@@ -76,61 +78,13 @@ export default class StudentViewCC extends Component<StudentCourseProps, FetchCo
                         <tr key={index}>Credits: <td>{course.courseHours + ' CE Hours'}</td></tr>
                         <tr key={index}>Price: <td>{'$' + course.coursePrice +'.00'}</td></tr>
                         <br />
-                        <Button type='submit' color='primary' size='large' variant="contained">CLICK TO ENROLL</Button>
+                        <Button onClick={this.clickEnrollButton} type='submit' color='primary' size='large' variant="contained">CLICK TO ENROLL</Button>
                         <br />
                         <br />
                     </div>
                     )
                 }
+                </div>
+
             </Container>
         )}} 
-
-
-
-
-
-
-
-
-
-
-//         <div>
-//             <h1>All Upcoming Courses</h1>
-//             {/* {this.fetchResults.map((this.fetchResults, index) => {
-//                 return(
-//                     <div key={index}>
-//                         <table>
-//                             <tbody>
-//                                 <tr>
-//                                     <td>Course Title</td>
-//                                     <td>Class Date</td>
-//                                     <td>Course Category</td>
-//                                     <td>Course Hours</td>
-//                                     <td>Course Price</td>
-//                                     <td>Add to Cart</td>
-//                                 </tr>
-
-//                                 <tr>
-//                                     <td>{this.fetchResults.courseTitle}</td>
-//                                     <td>{this.fetchResults.courseDate}</td>
-//                                     <td>{this.fetchResults.courseCategory}</td>
-//                                     <td>{this.fetchResults.courseHours}</td>
-//                                     <td>{this.fetchResults.coursePrice}</td>
-//                                     <td>{this.fetchResults.courseExpiration}</td>
-//                                     <td>
-//                                         {/* <button onClick={this.addToCart}>ENROLL!</button> */}
-//                                         {/* <button>ENROLL!</button>
-//                                     </td>
-//                                 </tr>
-
-//                             </tbody>
-//                         </table>
-//                     </div>
-//                 )
-//             })}
-
-
-//         </div>
-//         );
-//     }
-// }*/

@@ -10,15 +10,18 @@ const useStyles = makeStyles(() =>
 );
 
 interface Props {
-    clearToken:() => void
+    clearToken: () => void
     token: string
 }
 
 const Navbar = (props: Props) => {
+
+    console.log('Props: ', props);
     const classes = useStyles();
 
     return (
         <div>
+
         <AppBar position='static' color='secondary'>
             <Toolbar>
 
@@ -27,10 +30,11 @@ const Navbar = (props: Props) => {
                 <Button><Link to="/employees">Employees</Link></Button>
                 <Button><Link to="/login">Login</Link></Button>
                 <Button><Link to="/register">Sign Up</Link></Button>
-                <Button><Link to="/logout">Logout</Link></Button>
+                <Button onClick={props.clearToken}>Logout</Button>
 
             </Toolbar>
         </AppBar>
+
         </div>
     )
 }

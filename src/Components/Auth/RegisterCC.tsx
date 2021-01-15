@@ -1,3 +1,4 @@
+  
 import React from 'react';
 import APIURL from '../../helpers/environment';
 import { TextField, Button } from '@material-ui/core';
@@ -5,7 +6,7 @@ import { TextField, Button } from '@material-ui/core';
 // import { RouteComponentProps } from 'react-router-dom';
 
 interface RegisterFormProps {
-    setToken: (newToken: string) => void;
+    updateToken: (newToken: string) => void;
 }
 
 interface RegisterFormState {
@@ -35,36 +36,38 @@ export default class RegisterCC extends React.Component <RegisterFormProps, Regi
 }
 
 
-enterAdminStatus = (e: string) => {
-    this.setState({ isAdmin: e });
-}
-enterFirstName = (e: string) => {
-    this.setState({ firstName: e });
-}
-enterLastName = (e: string) => {
-    this.setState({ lastName: e });
-}
-enterEmail = (e: string) => {
-    this.setState({ email: e });
-}
-enterPassword = (e: string) => {
-    this.setState({ password: e });
-}
-enterLicenseState = (e: string) => {
-    this.setState({ licenseState: e });
-}
-enterLicenseNumber = (e: string) => {
-    this.setState({ licenseNumber: e });
-}
+// enterAdminStatus = (e: string) => {
+//     this.setState({ isAdmin: e });
+// }
+// enterFirstName = (e: string) => {
+//     this.setState({ firstName: e });
+// }
+// enterLastName = (e: string) => {
+//     this.setState({ lastName: e });
+// }
+// enterEmail = (e: string) => {
+//     this.setState({ email: e });
+// }
+// enterPassword = (e: string) => {
+//     this.setState({ password: e });
+// }
+// enterLicenseState = (e: string) => {
+//     this.setState({ licenseState: e });
+// }
+// enterLicenseNumber = (e: string) => {
+//     this.setState({ licenseNumber: e });
+// }
 
-registerUser (e: React.FormEvent<HTMLFormElement>) {
+
+// Student Register
+
+registerStudent (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    fetch(`${APIURL}/employees/register`, {
+    fetch(`${APIURL}/students/register`, {
         method: 'POST',
         body: JSON.stringify({
-            employee:
+            student:
             {
-                isAdmin: this.state.isAdmin,
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
                 email: this.state.email,
@@ -80,9 +83,41 @@ registerUser (e: React.FormEvent<HTMLFormElement>) {
         
         response.json())
         .then((data) => {
-            this.props.setToken(data.sessionToken);
-            console.log('User Created!')
+            this.props.updateToken(data.token);
+            console.log('Student Created!')
             console.log(`Token: ${data.sessionToken}`)
+            localStorage.setItem('Token: ', data.sessionToken)
+        })
+    }
+
+
+// Employee Register
+
+registerEmployee (e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    fetch(`${APIURL}/employees/register`, {
+        method: 'POST',
+        body: JSON.stringify({
+            employee:
+            {
+                isAdmin: this.state.isAdmin,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                email: this.state.email,
+                password: this.state.password
+            }
+        }),
+        headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }).then((response) => 
+        
+        response.json())
+        .then((data) => {
+            this.props.updateToken(data.token);
+            console.log('Student Created!')
+            console.log(`Token: ${data.sessionToken}`)
+            localStorage.setItem('Token: ', data.sessionToken)
         })
     }
     
@@ -90,11 +125,11 @@ registerUser (e: React.FormEvent<HTMLFormElement>) {
     render() {
         return(
             <div>
-            <form onSubmit={(e)=>this.registerUser(e)} >
 
-                <TextField id="outlined-basic" label="Admin Status" variant="outlined" onChange={(e)=>this.setState({isAdmin: (e.target.value)})} />
-                <br />
-                <br />
+                <h1>Student Register</h1>
+
+            <form onSubmit={(e)=>this.registerStudent(e)} >
+
                 <TextField id="outlined-basic" label="First Name" variant="outlined" onChange={(e)=>this.setState({firstName: (e.target.value)})} />
                 <br />
                 <br />
@@ -111,6 +146,30 @@ registerUser (e: React.FormEvent<HTMLFormElement>) {
                 <br />
                 <br />
                 <TextField id="outlined-basic" label="License Number" variant="outlined" onChange={(e)=>this.setState({licenseNumber: (e.target.value)})} />
+                <br />
+                <br />
+                <Button type='submit' color='primary' size='large' variant="contained">Create Account</Button>
+                <br />
+                <br />
+            </form>
+
+                <h1>Employee Register</h1>
+
+            <form onSubmit={(e)=>this.registerEmployee(e)} >
+
+                <TextField id="outlined-basic" label="Admin Status" variant="outlined" onChange={(e)=>this.setState({isAdmin: (e.target.value)})} />
+                <br />
+                <br />
+                <TextField id="outlined-basic" label="First Name" variant="outlined" onChange={(e)=>this.setState({firstName: (e.target.value)})} />
+                <br />
+                <br />
+                <TextField id="outlined-basic" label="Last Name" variant="outlined" onChange={(e)=>this.setState({lastName: (e.target.value)})} />
+                <br />
+                <br />
+                <TextField id="outlined-basic" label="Email" variant="outlined" onChange={(e)=>this.setState({email: (e.target.value)})} />
+                <br />
+                <br />
+                <TextField id="outlined-basic" label="Password" variant="outlined" onChange={(e)=>this.setState({password: (e.target.value)})} />
                 <br />
                 <br />
                 <Button type='submit' color='primary' size='large' variant="contained">Create Account</Button>
